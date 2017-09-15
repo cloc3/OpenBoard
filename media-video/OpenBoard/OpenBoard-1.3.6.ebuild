@@ -18,8 +18,8 @@ SLOT="0"
 #"
 
 SRC_URI="
-	https://raw.githubusercontent.com/cloc3/${PN}/master/distfiles/${P}.tar.zip
-	https://raw.githubusercontent.com/cloc3/${PN}/master/distfiles/${PN}-ThirdyParty-${PV}.tar.zip
+	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-1.3.6.zip
+	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-ThirdParty-1.3.6.zip
 "
 
 KEYWORDS="amd64 ~arm x86"
