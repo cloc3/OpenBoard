@@ -3,14 +3,12 @@
 
 EAPI=6
 
-inherit git-r3 qmake-utils
+inherit qmake-utils eutils xdg
 
-DESCRIPTION="OpenBoard is an open source cross-platform interactive white board application designed primarily for use in schools.
-It was originally forked from Open-Sankoré, which was itself based on Uniboard.
+DESCRIPTION="OpenBoard is an open source cross-platform interactive white board application designed primarily for use in schools."
 
-Supported platforms are Windows (7+), OS X (10.9+) and Linux (tested on Ubuntu 14.04 and 16.04)."
 HOMEPAGE="http://openboard.ch/"
-LICENSE="GPL-2 LGPL-2.1"
+LICENSE="GPL-3"
 SLOT="0"
 #SRC_URI="
 #	https://github.com/${PN}-org/${PN}/archive/master.zip -> ${P}.zip
@@ -22,10 +20,8 @@ SRC_URI="
 	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-ThirdParty-1.3.6.zip
 "
 
-KEYWORDS="amd64 ~arm x86"
+KEYWORDS="amd64 x86"
 IUSE=""
-
-PROPERTIES="interactive"
 
 DEPEND="
 	app-arch/unzip
@@ -61,11 +57,16 @@ src_compile() {
 	emake
 }
 
+pkg_preinst() {
+	xdg_pkg_preinst
+}
+
 src_install() {
 	if [[ -f Makefile ]] || [[ -f GNUmakefile ]] || [[ -f makefile ]] ; then
 		emake DESTDIR="${D}" install
 	fi
 	einstalldocs
+
 	P_INSTALL_PATH="/usr/lib/${PN}"
 	PRODUCT_DIR="${S}/build/linux/release/product/"
 	EXE="${P_INSTALL_PATH}/${PN}"
@@ -74,4 +75,25 @@ src_install() {
 	insinto "${P_INSTALL_PATH}"
 	doins -r "${PRODUCT_DIR}/library" "${PRODUCT_DIR}/etc"
 	dosym "${D}${EXE}" "/usr/bin/${PN}"
+
+	ICON_DIR="${S}/resources/images"
+	doicon --size 64 "${ICON_DIR}/OpenBoard.png"
+	mv "${S}/resources/images/OpenBoard.png" "${S}/resources/images/ubz-OpenBoardDoc.png"
+	doicon --size 64 "${ICON_DIR}/ubz-OpenBoardDoc.png"
+	make_desktop_entry OpenBoard "openboard" "OpenBoard" "Utility"
+	mv "${D}/usr/share/applications/OpenBoard-OpenBoard.desktop" "${D}/usr/share/applications/OpenBoard.desktop"
+	echo "MimeType=application/ubz" >> "${D}/usr/share/applications/OpenBoard.desktop"
+	mv "${ICON_DIR}/bigOpenBoard.png" "${ICON_DIR}/OpenBoard.png"
+	doicon --size 512 "${ICON_DIR}/OpenBoard.png"
+
+	dodir "/usr/share/mime/packages/"
+	sed '/Document OpenBoard/i\    <icon name="ubz-OpenBoardDoc"/>' "${S}/resources/linux/openboard-ubz.xml" > "${D}/usr/share/mime/packages/openboard-ubz.xml"
+}
+
+pkg_postinst() {
+	xdg_pkg_postinst
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
 }
