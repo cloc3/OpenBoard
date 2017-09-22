@@ -5,7 +5,7 @@
 		<email>ziapannocchia@gmail.com</email>
 		<name>cloc3</name>
 		<description>heartfelt gentoo user</description>
-		<description>vu vu vu gentù mi piaci tu</description>
+		<description lang="it">vu vu vu gentù mi piaci tu</description>
 	</maintainer>  
 	<upstream>
 		<changelog>https://github.com/OpenBoard-org/OpenBoard/releases/tag/v1.3.6</changelog>

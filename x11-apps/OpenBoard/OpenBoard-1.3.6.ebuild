@@ -5,28 +5,28 @@ EAPI=6
 
 inherit qmake-utils eutils xdg
 
-DESCRIPTION="OpenBoard is an open source cross-platform interactive white board application designed primarily for use in schools."
+DESCRIPTION="open cross-platform interactive whiteBoard application mainly for use in schools"
 
 HOMEPAGE="http://openboard.ch/"
 LICENSE="GPL-3"
 SLOT="0"
+
 #SRC_URI="
 #	https://github.com/${PN}-org/${PN}/archive/master.zip -> ${P}.zip
 #	https://github.com/${PN}-org/${PN}-ThirdParty/archive/master.zip -> ${PN}-ThirdParty-${PV}.zip
 #"
-
 SRC_URI="
 	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-1.3.6.zip
 	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-ThirdParty-1.3.6.zip
 "
 
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
 	app-arch/unzip
 	media-libs/freetype
-	dev-libs/openssl
+	dev-libs/openssl:0
 	sys-libs/zlib
 	dev-qt/qtlockedfile
 	dev-qt/qtsingleapplication
@@ -52,7 +52,7 @@ src_compile() {
 	cd ../OpenBoard-ThirdParty/xpdf
 	eqmake5 xpdf.pro -spec linux-g++
 	emake
-	cd $S
+	cd "${S}"
 	eqmake5 OpenBoard.pro -spec linux-g++
 	emake
 }
@@ -76,10 +76,10 @@ src_install() {
 	doins -r "${PRODUCT_DIR}/library" "${PRODUCT_DIR}/etc"
 	dosym "${D}${EXE}" "/usr/bin/${PN}"
 
+	# icon from: https://www.file-extensions.org/imgs/app-picture/11685/open-sankore.jpg
+	doicon "${S}/ubz-icon/ubz.png"
 	ICON_DIR="${S}/resources/images"
 	doicon --size 64 "${ICON_DIR}/OpenBoard.png"
-	mv "${S}/resources/images/OpenBoard.png" "${S}/resources/images/ubz-OpenBoardDoc.png"
-	doicon --size 64 "${ICON_DIR}/ubz-OpenBoardDoc.png"
 	make_desktop_entry OpenBoard "openboard" "OpenBoard" "Utility"
 	mv "${D}/usr/share/applications/OpenBoard-OpenBoard.desktop" "${D}/usr/share/applications/OpenBoard.desktop"
 	echo "MimeType=application/ubz" >> "${D}/usr/share/applications/OpenBoard.desktop"
@@ -87,7 +87,7 @@ src_install() {
 	doicon --size 512 "${ICON_DIR}/OpenBoard.png"
 
 	dodir "/usr/share/mime/packages/"
-	sed '/Document OpenBoard/i\    <icon name="ubz-OpenBoardDoc"/>' "${S}/resources/linux/openboard-ubz.xml" > "${D}/usr/share/mime/packages/openboard-ubz.xml"
+	sed '/Document OpenBoard/i\    <icon name="ubz"/>' "${S}/resources/linux/openboard-ubz.xml" > "${D}/usr/share/mime/packages/openboard-ubz.xml"
 }
 
 pkg_postinst() {
