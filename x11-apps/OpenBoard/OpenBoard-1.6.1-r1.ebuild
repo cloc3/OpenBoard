@@ -1,9 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
-inherit qmake-utils eutils xdg
+inherit qmake-utils xdg desktop
 
 DESCRIPTION="open cross-platform interactive whiteBoard application mainly for use in schools"
 
@@ -11,17 +11,15 @@ HOMEPAGE="http://openboard.ch/"
 LICENSE="GPL-3"
 SLOT="0"
 
-#SRC_URI="
-#	https://github.com/${PN}-org/${PN}/archive/master.zip -> ${P}.zip
-#	https://github.com/${PN}-org/${PN}-ThirdParty/archive/master.zip -> ${PN}-ThirdParty-${PV}.zip
-#"
 SRC_URI="
-	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-1.3.6.zip
-	https://github.com/cloc3/OpenBoard/raw/master/distfiles/OpenBoard-ThirdParty-1.3.6.zip
+	https://github.com/OpenBoard-org/OpenBoard/archive/v${PV}.tar.gz -> ${P}.tar.gz
 "
+#	https://github.com/OpenBoard-org/OpenBoard-ThirdParty/archive/refs/heads/master.zip -> OpenBoard-ThirdyParty.zip
+#"
 
 KEYWORDS="~amd64 ~x86"
 IUSE=""
+#PROPERTIES="interactive"
 
 DEPEND="
 	app-arch/unzip
@@ -30,29 +28,32 @@ DEPEND="
 	sys-libs/zlib
 	dev-qt/qtlockedfile
 	dev-qt/qtsingleapplication
+	media-libs/fdk-aac
+	dev-qt/linguist-tools:5
+	app-text/xpdf
+	dev-libs/quazip
+	dev-qt/qtwebkit
 "
 
 RDEPEND="${DEPEND}
 "
-
-src_unpack() {
-	unpack ${A}
-	cd "${WORKDIR}"
-	mv "${PN}-master" "${P}"
-	mv "${PN}-ThirdParty-master" "${PN}-ThirdParty"
+src_prepare() {
+	default
+	eapply "${FILESDIR}"/c++17_systemQuazip.patch
 }
 
 src_configure() {
-	# xpdf ThirdParty build is the only one needed to make OpenBoard 
-	cd ../OpenBoard-ThirdParty/xpdf/xpdf-3.04
-	econf
+	local mycmakeargs=(
+	-DCMAKE_CXX_STANDARD=17
+	)
+	cmake_src_configure
 }
 
 src_compile() {
-	cd ../OpenBoard-ThirdParty/xpdf
-	eqmake5 xpdf.pro -spec linux-g++
-	emake
 	cd "${S}"
+	cd resources/i18n
+	/usr/lib64/qt5/bin/lrelease OpenBoard_it.ts
+	cd -
 	eqmake5 OpenBoard.pro -spec linux-g++
 	emake
 }
@@ -62,6 +63,7 @@ pkg_preinst() {
 }
 
 src_install() {
+	default
 	if [[ -f Makefile ]] || [[ -f GNUmakefile ]] || [[ -f makefile ]] ; then
 		emake DESTDIR="${D}" install
 	fi
@@ -76,15 +78,16 @@ src_install() {
 	doins -r "${PRODUCT_DIR}/library" "${PRODUCT_DIR}/etc"
 	dosym "${D}${EXE}" "/usr/bin/${PN}"
 
-	# icon from: https://www.file-extensions.org/imgs/app-picture/11685/open-sankore.jpg
-	doicon "${S}/ubz-icon/ubz.png"
+	if [ -f ${S}/ubz-icon/ubz.png ]; then doicon "${S}/ubz-icon/ubz.png";fi 
 	ICON_DIR="${S}/resources/images"
-	doicon --size 64 "${ICON_DIR}/OpenBoard.png"
+	doicon "./resources/images/bigOpenBoard.png"
+	doicon "./resources/images/OpenBoard.png"
+	doicon "./resources/win/OpenBoard.ico"
+	# icon from: https://www.file-extensions.org/imgs/app-picture/11685/open-sankore.jpg
+	doicon "${FILESDIR}/open-sankore.jpg"
 	make_desktop_entry OpenBoard "openboard" "OpenBoard" "Utility"
 	mv "${D}/usr/share/applications/OpenBoard-OpenBoard.desktop" "${D}/usr/share/applications/OpenBoard.desktop"
 	echo "MimeType=application/ubz" >> "${D}/usr/share/applications/OpenBoard.desktop"
-	mv "${ICON_DIR}/bigOpenBoard.png" "${ICON_DIR}/OpenBoard.png"
-	doicon --size 512 "${ICON_DIR}/OpenBoard.png"
 
 	dodir "/usr/share/mime/packages/"
 	sed '/Document OpenBoard/i\    <icon name="ubz"/>' "${S}/resources/linux/openboard-ubz.xml" > "${D}/usr/share/mime/packages/openboard-ubz.xml"
