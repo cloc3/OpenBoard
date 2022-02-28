@@ -12,7 +12,8 @@ LICENSE="GPL-3"
 SLOT="0"
 
 #SRC_URI="https://github.com/OpenBoard-org/OpenBoard/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI="https://github.com/cloc3/OpenBoard/distfiles/raw/1.6.1/x11-misc/${PN}/${P}.zip"
+SRC_URI="https://github.com/cloc3/${PN}/raw/1.6.1/distfiles/${P}.tar.gz"
+#SRC_URI="https://github.com/cloc3/OpenBoard/distfiles/raw/1.6.1/x11-misc/${PN}/${P}.zip"
 #SRC_URI+=" https://github.com/OpenBoard-org/OpenBoard-ThirdParty/archive/refs/heads/master.zip -> OpenBoard-ThirdyParty.zip"
 
 KEYWORDS="~amd64 ~x86"
