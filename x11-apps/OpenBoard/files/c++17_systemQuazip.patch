@@ -1,44 +1,21 @@
-diff -ruN OpenBoard-1.6.1.orig/CMakeLists.txt OpenBoard-1.6.1/CMakeLists.txt
---- OpenBoard-1.6.1.orig/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ OpenBoard-1.6.1/CMakeLists.txt	2022-02-28 12:48:48.041562398 +0100
-@@ -0,0 +1 @@
-+set(CMAKE_CXX_STANDARD 17)
-diff -ruN OpenBoard-1.6.1.orig/OpenBoard.pro OpenBoard-1.6.1/OpenBoard.pro
---- OpenBoard-1.6.1.orig/OpenBoard.pro	2021-04-13 19:05:29.000000000 +0200
-+++ OpenBoard-1.6.1/OpenBoard.pro	2022-02-28 13:57:33.870978025 +0100
-@@ -1,7 +1,7 @@
- TARGET = "OpenBoard"
- TEMPLATE = app
- 
--CONFIG += c++14
-+#CONFIG += c++14
- CONFIG -= flat
- CONFIG += debug_and_release \
-           no_include_pwd
-@@ -446,16 +446,24 @@
- }
- 
+diff -ruN OpenBoard-1.6.3.orig/OpenBoard.pro OpenBoard-1.6.3/OpenBoard.pro
+--- OpenBoard.orig/OpenBoard.pro	2022-06-13 08:48:36.000000000 +0200
++++ OpenBoard/OpenBoard.pro	2022-08-14 08:30:43.963512931 +0200
+@@ -449,10 +449,14 @@
  linux-g++* {
-+    message(CXX_STANDARD=17)
-+		CONFIG += c++17
      CONFIG += link_prl
      LIBS += -lcrypto
-     #LIBS += -lprofiler
+-    #LIBS += -lprofiler
++    LIBS += -lprofiler
      LIBS += -lX11
 -    LIBS += -lquazip5
--    INCLUDEPATH += "/usr/include/quazip"
-+    #LIBS += -lquazip5
-+    #INCLUDEPATH += "/usr/include/quazip"
-+
+-    INCLUDEPATH += "/usr/include/quazip5"
++#		LIBS += -lquazip5
++#    INCLUDEPATH += "/usr/include/quazip5"
++    INCLUDEPATH += "/usr/include/quazip"
 +		message(System QuaZip)
 +		CONFIG += link_pkgconfig
 +		PKGCONFIG += quazip1-qt5
  
      LIBS += -lpoppler
      INCLUDEPATH += "/usr/include/poppler"
- 
-+    message(CMAKE_CXX_STANDARD=17)
-+		QMAKE_CXXFLAGS += -std=c++17
-     QMAKE_CFLAGS += -fopenmp
-     QMAKE_CXXFLAGS += -fopenmp
-     QMAKE_LFLAGS += -fopenmp
