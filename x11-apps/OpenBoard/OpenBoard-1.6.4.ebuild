@@ -32,6 +32,10 @@ DEPEND="
 	dev-qt/qtwebkit
 "
 
+PDEPEND="
+	x11-apps/OpenBoard-Importer
+"
+
 RDEPEND="${DEPEND}
 "
 src_unpack() {
@@ -78,8 +82,6 @@ src_install() {
 	doins -r "${RESOURCES}/customizations"
 	dosym "${D}${EXE}" "/usr/bin/${PN}"
 
-	if [ -f ${S}/ubz-icon/ubz.png ]; then doicon "${S}/ubz-icon/ubz.png";fi 
-	ICON_DIR="${S}/resources/images"
 	doicon "./resources/images/bigOpenBoard.png"
 	doicon "./resources/images/OpenBoard.png"
 	doicon "./resources/win/OpenBoard.ico"

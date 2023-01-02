@@ -8,6 +8,6 @@
 		<description lang="it">vu vu vu gentù mi piaci tu</description>
 	</maintainer>  
 	<upstream>
-		<changelog>https://github.com/OpenBoard-org/OpenBoard/releases/tag/v1.6.4</changelog>
+		<changelog>https://github.com/OpenBoard-org/OpenBoard-Importer</changelog>
 	</upstream>
 </pkgmetadata>
