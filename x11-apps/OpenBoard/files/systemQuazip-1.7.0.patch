@@ -1,0 +1,18 @@
+diff -ruN OpenBoard-master.orig/OpenBoard.pro OpenBoard-master/OpenBoard.pro
+--- OpenBoard-master.orig/OpenBoard.pro	2023-12-08 16:30:47.000000000 +0100
++++ OpenBoard-master/OpenBoard.pro	2023-12-09 12:02:16.561372066 +0100
+@@ -469,8 +469,12 @@
+         LIBS += -lquazip6
+         INCLUDEPATH += "/usr/include/quazip6"
+     } else {
+-        LIBS += -lquazip5
+-        INCLUDEPATH += "/usr/include/quazip5"
++        #LIBS += -lquazip5
++        #INCLUDEPATH += "/usr/include/quazip5"
++        INCLUDEPATH += "/usr/include/QuaZip-Qt5-1.4"
++        message(System QuaZip)
++        CONFIG += link_pkgconfig
++        PKGCONFIG += quazip1-qt5
+     }
+ 
+     LIBS += -lpoppler

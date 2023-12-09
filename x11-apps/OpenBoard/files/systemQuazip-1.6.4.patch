@@ -1,0 +1,21 @@
+diff -ruN OpenBoard-1.6.3.orig/OpenBoard.pro OpenBoard-1.6.3/OpenBoard.pro
+--- OpenBoard.orig/OpenBoard.pro	2022-06-13 08:48:36.000000000 +0200
++++ OpenBoard/OpenBoard.pro	2022-08-14 08:30:43.963512931 +0200
+@@ -449,10 +449,14 @@
+ linux-g++* {
+     CONFIG += link_prl
+     LIBS += -lcrypto
+-    #LIBS += -lprofiler
++    LIBS += -lprofiler
+     LIBS += -lX11
+-    LIBS += -lquazip5
+-    INCLUDEPATH += "/usr/include/quazip5"
++#		LIBS += -lquazip5
++#    INCLUDEPATH += "/usr/include/quazip5"
++    INCLUDEPATH += "/usr/include/quazip"
++		message(System QuaZip)
++		CONFIG += link_pkgconfig
++		PKGCONFIG += quazip1-qt5
+ 
+     LIBS += -lpoppler
+     INCLUDEPATH += "/usr/include/poppler"

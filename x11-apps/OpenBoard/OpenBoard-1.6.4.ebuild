@@ -15,7 +15,7 @@ SLOT="0"
 SRC_URI="https://cloc3.net/distfiles/${P}.zip"
 
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="-qt6"
 PROPERTIES="interactive"
 
 DEPEND="
@@ -45,7 +45,7 @@ src_unpack() {
 
 src_prepare() {
 	default
-	eapply "${FILESDIR}"/c++17_systemQuazip.patch
+	eapply "${FILESDIR}"/systemQuazip-1.6.4.patch
 }
 
 src_configure() {
