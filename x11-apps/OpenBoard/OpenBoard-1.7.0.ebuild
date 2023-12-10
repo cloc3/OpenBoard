@@ -78,6 +78,7 @@ src_install() {
 	doicon "./resources/images/bigOpenBoard.png"
 	doicon "./resources/images/OpenBoard.png"
 	doicon "./resources/win/OpenBoard.ico"
+	doins -r "${RESOURCES}/startupHints"
 	# icon from: https://www.file-extensions.org/imgs/app-picture/11685/open-sankore.jpg
 	doicon "${FILESDIR}/open-sankore.jpg"
 	make_desktop_entry OpenBoard "openboard" "OpenBoard" "Utility"
