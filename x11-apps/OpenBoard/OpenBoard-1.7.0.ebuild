@@ -15,12 +15,12 @@ SLOT="0"
 SRC_URI="https://cloc3.net/distfiles/${P}.zip"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="-qt6"
+IUSE=""
 PROPERTIES="interactive"
 
 DEPEND="
 	app-text/poppler
-	dev-libs/quazip[qt5]
+	dev-libs/quazip
 	dev-qt/qtsingleapplication
 	dev-qt/linguist-tools
 	dev-qt/qtwebengine
