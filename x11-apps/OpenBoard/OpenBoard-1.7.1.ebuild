@@ -15,8 +15,6 @@ SLOT="0"
 SRC_URI="https://cloc3.net/distfiles/${P}.zip"
 
 KEYWORDS="~amd64 ~x86"
-#IUSE="qt5 +qt6"
-#REQUIRED_USE="?? ( qt5 qt6 )"
 PROPERTIES="interactive"
 
 DEPEND="
