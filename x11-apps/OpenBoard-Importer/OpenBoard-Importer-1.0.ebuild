@@ -29,7 +29,6 @@ DEPEND="
 	dev-qt/linguist-tools:5
 	app-text/xpdf
 	dev-libs/quazip
-	dev-qt/qtwebkit
 "
 
 RDEPEND="${DEPEND}

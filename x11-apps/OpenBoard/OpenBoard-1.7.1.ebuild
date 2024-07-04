@@ -15,13 +15,14 @@ SLOT="0"
 SRC_URI="https://cloc3.net/distfiles/${P}.zip"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="qt5 +qt6"
-REQUIRED_USE="?? ( qt5 qt6 )"
+#IUSE="qt5 +qt6"
+#REQUIRED_USE="?? ( qt5 qt6 )"
 PROPERTIES="interactive"
 
 DEPEND="
 	app-text/poppler
 	dev-libs/quazip
+	dev-qt/qtbase
 	dev-qt/qtsingleapplication
 	dev-qt/linguist-tools
 	dev-qt/qtwebengine
@@ -40,23 +41,19 @@ src_unpack() {
 
 src_prepare() {
 	default
-	eapply "${FILESDIR}"/systemQuazip-1.7.0.patch
+	#eapply "${FILESDIR}"/systemQuazip-1.7.1.patch
+	eapply "${FILESDIR}"/systemQuazip-1.7.1.patch
 }
 
 src_configure() {
 	local mycmakeargs=(
-	-DCMAKE_CXX_STANDARD=17
+	-DCMAKE_CXX_STANDARD=20
 	)
 }
 
 src_compile() {
-	if use qt5; then {
-		/usr/lib64/qt5/bin/lrelease-pro OpenBoard.pro
-		eqmake5 OpenBoard.pro -spec linux-g++
-	} else {
-		/usr/lib64/qt6/bin/lrelease OpenBoard.pro
-		eqmake6 OpenBoard.pro -spec linux-g++
-	} fi
+	/usr/lib64/qt6/bin/lrelease OpenBoard.pro
+	eqmake6 OpenBoard.pro -spec linux-g++
 	emake
 }
 

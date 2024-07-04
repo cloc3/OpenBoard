@@ -1,7 +1,16 @@
-diff -urN OpenBoard-master.orig/OpenBoard.pro OpenBoard-master/OpenBoard.pro
---- OpenBoard-master.orig/OpenBoard.pro	2023-12-08 16:30:47.000000000 +0100
-+++ OpenBoard-master/OpenBoard.pro	2023-12-10 20:47:56.849928099 +0100
-@@ -466,11 +466,19 @@
+diff -ruN OpenBoard-master.orig/OpenBoard.pro OpenBoard-master/OpenBoard.pro
+--- OpenBoard-master.orig/OpenBoard.pro	2024-05-24 08:31:56.000000000 +0200
++++ OpenBoard-master/OpenBoard.pro	2024-07-04 20:16:24.747172459 +0200
+@@ -1,7 +1,7 @@
+ TARGET = "OpenBoard"
+ TEMPLATE = app
+ 
+-CONFIG += c++17
++CONFIG += c++20
+ CONFIG -= flat
+ CONFIG += debug_and_release \
+           no_include_pwd
+@@ -462,11 +462,19 @@
      LIBS += -lX11
  
      greaterThan(QT_MAJOR_VERSION, 5) {
