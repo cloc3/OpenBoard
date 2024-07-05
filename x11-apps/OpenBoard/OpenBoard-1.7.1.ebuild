@@ -74,7 +74,7 @@ src_install() {
 	doins -r "${PRODUCT_DIR}/etc"
 	doins -r "${PRODUCT_DIR}/i18n"
 	doins -r "${RESOURCES}/customizations"
-	dosym "${D}${EXE}" "/usr/bin/${PN}"
+	dosym "${EXE}" "/usr/bin/${PN}"
 
 	doicon "./resources/images/bigOpenBoard.png"
 	doicon "./resources/images/OpenBoard.png"
