@@ -1,0 +1,41 @@
+diff '--color=auto' -uNr OpenBoard-master.orig/OpenBoard.pro OpenBoard-master/OpenBoard.pro
+--- OpenBoard-master.orig/OpenBoard.pro	2024-12-18 18:39:13.000000000 +0100
++++ OpenBoard-master/OpenBoard.pro	2024-12-29 16:53:30.168251669 +0100
+@@ -1,7 +1,7 @@
+ TARGET = "OpenBoard"
+ TEMPLATE = app
+ 
+-CONFIG += c++17
++CONFIG += c++20
+ CONFIG -= flat
+ CONFIG += debug_and_release \
+           no_include_pwd
+@@ -461,13 +461,21 @@
+     #LIBS += -lprofiler
+     LIBS += -lX11
+ 
+-    greaterThan(QT_MAJOR_VERSION, 5) {
+-        LIBS += -lquazip6
+-        INCLUDEPATH += "/usr/include/quazip6"
+-    } else {
+-        LIBS += -lquazip5
+-        INCLUDEPATH += "/usr/include/quazip5"
+-    }
++#    greaterThan(QT_MAJOR_VERSION, 5) {
++        #LIBS += -lquazip6
++        #INCLUDEPATH += "/usr/include/quazip6"
++ 				INCLUDEPATH += "/usr/include/Quazip-Qt6-1.4"
++				message(System Quazip)
++				CONFIG += link_pkgconfig
++				PKGCONFIG+= quazip1-qt6
++#   } else {
++        #LIBS += -lquazip5
++        #INCLUDEPATH += "/usr/include/quazip5"
++				#INCLUDEPATH += "/usr/include/Quazip-Qt5-1.4"
++				#message(System Quazip)
++				#CONFIG += link_pkgconfig
++				#PKGCONFIG+= quazip1-qt5
++#    }
+ 
+     LIBS += -lpoppler
+     INCLUDEPATH += "/usr/include/poppler"

@@ -12,7 +12,7 @@ LICENSE="GPL-3"
 SLOT="0"
 
 #SRC_URI="https://github.com/OpenBoard-org/OpenBoard/archive/refs/heads/master.zip -> ${P}.zip"
-SRC_URI="https://cloc3.net/distfiles/${P}.zip"
+SRC_URI="https://github.com/cloc3/OpenBoard/raw/refs/heads/main/distfiles/${P}.zip"
 
 KEYWORDS="~amd64 ~x86"
 PROPERTIES="interactive"
