@@ -11,8 +11,8 @@ HOMEPAGE="http://openboard.ch/"
 LICENSE="GPL-3"
 SLOT="0"
 
-#SRC_URI="https://github.com/OpenBoard-org/OpenBoard/archive/refs/heads/master.zip -> ${P}.zip"
-SRC_URI="https://github.com/cloc3/OpenBoard/raw/refs/heads/main/distfiles/${P}.zip"
+#SRC_URI="https://github.com/OpenBoard-org/OpenBoard/archive/refs/tags/v1.7.3.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/cloc3/OpenBoard/raw/refs/heads/main/distfiles/${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
 PROPERTIES="interactive"
@@ -32,11 +32,6 @@ PDEPEND="
 
 RDEPEND="${DEPEND}
 "
-src_unpack() {
-	default
-	mv OpenBoard-master ${P}
-}
-
 src_prepare() {
 	default
 	#eapply "${FILESDIR}"/systemQuazip-1.7.1.patch
