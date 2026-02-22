@@ -22,13 +22,8 @@ DEPEND="
 	app-text/poppler
 	dev-libs/quazip
 	dev-qt/qtbase
-	dev-qt/qtsingleapplication
 	dev-qt/linguist-tools
 	dev-qt/qtwebengine
-"
-
-PDEPEND="
-	x11-apps/OpenBoard-Importer
 "
 
 RDEPEND="${DEPEND}
