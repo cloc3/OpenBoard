@@ -30,7 +30,7 @@ RDEPEND="${DEPEND}
 "
 src_prepare() {
 	default
-	eapply "${FILESDIR}"/systemQuazip-1.7.5.patch
+	eapply "${FILESDIR}"/systemQuazip.patch
 }
 
 src_configure() {
